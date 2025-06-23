@@ -70,7 +70,7 @@ module "log-analytics" {
 # Key Vault
 # ------------------------------------------------------------------------------
 module "vault" {
-  source                        = "terraform-az-modules/vault/azure"
+  source                        = "terraform-az-modules/key-vault/azure"
   version                       = "1.0.0"
   name                          = "core"
   environment                   = "dev"
@@ -100,7 +100,7 @@ module "vault" {
 # Private DNS Zone
 # ------------------------------------------------------------------------------
 module "private_dns_zone" {
-  source              = "terraform-az-modules/private-dns-zone/azure"
+  source              = "terraform-az-modules/private-dns/azure"
   version             = "1.0.0"
   resource_group_name = module.resource_group.resource_group_name
   private_dns_config = [

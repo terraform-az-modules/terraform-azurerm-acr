@@ -29,8 +29,8 @@ No providers are explicitly defined in this example.
 | vnet               | terraform-az-modules/vnet/azure                             | 1.0.0   |
 | subnet             | terraform-az-modules/subnet/azure                           | 1.0.0   |
 | log-analytics      | terraform-az-modules/log-analytics/azure                    | 1.0.0   |
-| vault              | terraform-az-modules/vault/azure                            | 1.0.0   |
-| private_dns_zone   | terraform-az-modules/private-dns-zone/azure                 | 1.0.0   |
+| vault              | terraform-az-modules/key-vault/azure                        | 1.0.0   |
+| private_dns_zone   | terraform-az-modules/private-dns/azure                      | 1.0.0   |
 | container_registry | ../../                                                      | n/a     |
 
 
