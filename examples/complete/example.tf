@@ -23,7 +23,7 @@ module "resource_group" {
 # ------------------------------------------------------------------------------
 module "vnet" {
   source              = "terraform-az-modules/vnet/azure"
-  version             = "1.0.0"
+  version             = "1.0.1"
   name                = "core"
   environment         = "dev"
   label_order         = ["name", "environment", "location"]
