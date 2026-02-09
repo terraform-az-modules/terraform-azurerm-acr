@@ -203,6 +203,7 @@ variable "network_rule_set" {
   type = object({
     default_action = optional(string)
     ip_rule = optional(list(object({
+      action   = optional(string)
       ip_range = string
     })))
     virtual_network = optional(list(object({
