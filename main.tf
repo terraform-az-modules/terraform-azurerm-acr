@@ -43,7 +43,7 @@ resource "azurerm_container_registry" "main" {
   dynamic "network_rule_set" {
     for_each = var.network_rule_set != null ? [var.network_rule_set] : []
     content {
-      default_action = lookup(network_rule_set.value, "default_action", "Allow")
+      default_action = lookup(network_rule_set.value, "default_action", "Deny")
 
       dynamic "ip_rule" {
         for_each = network_rule_set.value.ip_rule
