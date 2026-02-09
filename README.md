@@ -155,3 +155,8 @@ Write to us at [hello@clouddrove.com](hello@clouddrove.com).
   [email]: <>
   [github]: https://github.com/terraform-az-modules
   [terraform_modules]: https://github.com/orgs/terraform-az-modules/repositories
+
+## Security Notes
+
+Examples now use private-first defaults for dependent services (notably Key Vault).
+If your use case requires public access, set `public_network_access_enabled = true` explicitly and scope allowlists to trusted IP ranges.
