@@ -13,4 +13,16 @@ jobs:
     uses: clouddrove/github-shared-workflows/.github/workflows/pr_checks.yml@master
     secrets: inherit
     with:
+      types: |
+        feat
+        fix
+        docs
+        style
+        refactor
+        perf
+        test
+        build
+        ci
+        chore
+        revert
       subjectPattern: '^.+$'
