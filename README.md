@@ -155,3 +155,10 @@ Write to us at [hello@clouddrove.com](hello@clouddrove.com).
   [email]: <>
   [github]: https://github.com/terraform-az-modules
   [terraform_modules]: https://github.com/orgs/terraform-az-modules/repositories
+
+
+## Security defaults updated (2026-02)
+
+This module default for Azure Container Registry network access is now more secure: `network_rule_set.default_action` defaults to `Deny` instead of `Allow`.
+
+This is a breaking change. If you rely on the previous behavior, set `network_rule_set = { default_action = "Allow" }` explicitly.
