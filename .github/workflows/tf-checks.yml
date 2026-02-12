@@ -7,12 +7,12 @@ on:
 jobs:
 # Update 'Job name' and 'working_directory' as needed based on the module structure.
   complete-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.1
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@2.0.0
     with:
       working_directory: './examples/complete/'
 
   basic-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.1
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@2.0.0
     with:
       working_directory: './examples/basic/'
   
