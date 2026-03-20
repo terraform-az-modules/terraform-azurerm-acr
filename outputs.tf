@@ -89,7 +89,7 @@ output "user_assigned_identity_principal_id" {
 }
 
 ##-----------------------------------------------------------------------------
-## Diagnostic Settings 
+## Diagnostic Settings
 ##-----------------------------------------------------------------------------
 
 output "diagnostic_setting_id" {
@@ -98,7 +98,7 @@ output "diagnostic_setting_id" {
 }
 
 ##-----------------------------------------------------------------------------
-## Tags  
+## Tags
 ##-----------------------------------------------------------------------------
 output "tags" {
   value       = try(module.labels.tags, null)
