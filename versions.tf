@@ -13,4 +13,8 @@ terraform {
       version = ">=4.31.0"
     }
   }
+
+  provider_meta "azurerm" {
+    module_name = "terraform-az-modules/terraform-azurerm-acr"
+  }
 }
