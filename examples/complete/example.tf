@@ -78,13 +78,13 @@ module "vault" {
   resource_group_name           = module.resource_group.resource_group_name
   location                      = module.resource_group.resource_group_location
   subnet_id                     = module.subnet.subnet_ids.subnet1
-  public_network_access_enabled = true
+  public_network_access_enabled = false
   sku_name                      = "premium"
   private_dns_zone_ids          = module.private_dns_zone.private_dns_zone_ids.key_vault
   network_acls = {
     bypass         = "AzureServices"
     default_action = "Deny"
-    ip_rules       = ["0.0.0.0/0"]
+    ip_rules       = []
   }
   reader_objects_ids = {
     "Key Vault Administrator" = {
