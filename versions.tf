@@ -1,13 +1,10 @@
 terraform {
-  required_version = ">= 1.14.5"
+  required_version = ">= 1.10.0"
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "# Terraform version"
+      version = ">= 4.0"
     }
-  }
-  provider_meta "azurerm" {
-    module_name = "terraform-az-modules/terraform-azurerm-acr"
   }
 }
