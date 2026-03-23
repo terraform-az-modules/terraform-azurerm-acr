@@ -72,20 +72,20 @@ module "log-analytics" {
 module "vault" {
   source                        = "terraform-az-modules/key-vault/azurerm"
   version                       = "2.1.0"
-  name                          = "core"
+  name                          = "cor23"
   environment                   = "dev"
   label_order                   = ["name", "environment", "location"]
   resource_group_name           = module.resource_group.resource_group_name
   location                      = module.resource_group.resource_group_location
   subnet_id                     = module.subnet.subnet_ids.subnet1
-  public_network_access_enabled = false
+  public_network_access_enabled = true
   sku_name                      = "premium"
   private_dns_zone_ids          = module.private_dns_zone.private_dns_zone_ids.key_vault
-  network_acls = {
-    bypass         = "AzureServices"
-    default_action = "Deny"
-    ip_rules       = []
-  }
+  # network_acls = {
+  #   bypass         = "AzureServices"
+  #   default_action = "Deny"
+  #   ip_rules       = []
+  # }
   reader_objects_ids = {
     "Key Vault Administrator" = {
       role_definition_name = "Key Vault Administrator"
@@ -123,7 +123,7 @@ module "private_dns_zone" {
 # ------------------------------------------------------------------------------
 module "container-registry" {
   source                     = "../../"
-  name                       = "core"
+  name                       = "core33"
   environment                = "dev"
   label_order                = ["name", "environment", "location"]
   resource_group_name        = module.resource_group.resource_group_name
