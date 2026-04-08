@@ -2,13 +2,15 @@ name: Security Scan
 
 on:
   pull_request:
-    branches: [ master ]
-    types: [ opened, synchronize ]
+    types:
+      - opened
+      - synchronize
 
 jobs:
   checkov:
-    uses: clouddrove/github-shared-workflows/.github/workflows/checkov.yml@master
+    if: github.actor != 'dependabot[bot]'
+    uses: clouddrove/github-shared-workflows/.github/workflows/security-checkov.yml@v2
     with:
       directory: '.'
       continue_on_error: 'true'
-      skip_check: 'CKV_TF_1,CKV_TF_2,CKV_AZURE_233,CKV_AZURE_164,CKV2_AZURE_30'
+      skip_check: 'CKV_TF_1'
