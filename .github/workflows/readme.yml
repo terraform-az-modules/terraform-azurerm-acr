@@ -69,7 +69,7 @@ jobs:
 
       - name: Clone genie
         run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/terraform-az-modules/genie.git .genie
+          git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git .genie
 
       - name: Debug genie
         run: |
