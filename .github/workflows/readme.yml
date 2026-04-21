@@ -3,8 +3,7 @@ name: Readme Workflow
 on:
   push:
     branches:
-      - main
-      - master
+      - feat/docsreadme
   workflow_dispatch:
 
 permissions:
@@ -29,7 +28,7 @@ jobs:
 
       - name: Generate README
         run: |
-          make readme
+          make readme GENIE_PATH=/home/runner/genie
 
       - name: Commit and push changes
         run: |
