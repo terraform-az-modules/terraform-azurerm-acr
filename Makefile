@@ -15,4 +15,12 @@ readme:
 		echo "Genie not found. Please clone it first."; \
 		exit 1; \
 	fi
-	$(MAKE) -C $(GENIE_PATH) readme
+
+	# Run terraform-docs in repo root
+	mkdir -p docs
+	$(GENIE_PATH)/bin/terraform-docs md . --hide providers --hide requirements > docs/io.md
+
+	# Run gomplate from repo root using genie templates
+	$(GENIE_PATH)/bin/gomplate \
+		--file $(GENIE_PATH)/views/README.md \
+		--out README.md
