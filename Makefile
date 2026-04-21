@@ -9,15 +9,10 @@
 
 GENIE_PATH := $(shell pwd)/.genie
 
-.PHONY: genie-init
-genie-init:
-	@if [ ! -d "$(GENIE_PATH)" ]; then \
-		echo "Cloning Genie..."; \
-		git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git $(GENIE_PATH); \
-	else \
-		echo "Genie already exists"; \
-	fi
-
 .PHONY: readme
-readme: genie-init
+readme:
+	@if [ ! -d "$(GENIE_PATH)" ]; then \
+		echo "Genie not found. Please clone it first."; \
+		exit 1; \
+	fi
 	$(MAKE) -C $(GENIE_PATH) readme
