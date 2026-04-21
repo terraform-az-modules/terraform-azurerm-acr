@@ -36,7 +36,15 @@ jobs:
             aarch64|arm64) ARCH="arm64" ;;
             *) echo "Unsupported arch: $ARCH" ; exit 1 ;;
           esac
-          curl -sSL "https://github.com/terraform-docs/terraform-docs/releases/download/${TFD_VERSION}/terraform-docs-${TFD_VERSION#v}-linux-${ARCH}.tar.gz" -o /tmp/terraform-docs.tgz
+          URL="https://github.com/terraform-docs/terraform-docs/releases/download/${TFD_VERSION}/terraform-docs-${TFD_VERSION#v}-linux-${ARCH}.tar.gz"
+          curl -fSL --retry 3 --retry-delay 2 "$URL" -o /tmp/terraform-docs.tgz
+          # Validate we actually downloaded a gzip tarball (helps diagnose 404/rate-limit HTML pages)
+          if ! tar -tzf /tmp/terraform-docs.tgz >/dev/null 2>&1; then
+            echo "Downloaded file is not a valid .tar.gz from $URL"
+            echo "--- first 40 lines of downloaded content ---"
+            head -n 40 /tmp/terraform-docs.tgz || true
+            exit 1
+          fi
           tar -xzf /tmp/terraform-docs.tgz -C /tmp
           sudo install -m 0755 /tmp/terraform-docs /usr/local/bin/terraform-docs
           terraform-docs version
