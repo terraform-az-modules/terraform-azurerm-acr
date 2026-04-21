@@ -1,68 +1,56 @@
----
-#
-# This is the canonical configuration for the `README.md`
-# Run `make readme` to rebuild the `README.md`
-#
-
-# Name of this project
 name: Terraform Azure Container Registry
 
-# License of this project
+intro: |-
+  With our comprehensive DevOps toolkit - streamline operations, automate workflows, enhance collaboration and deploy with confidence.
+
+badges_text: "Latest Release | tfsec | License | Changelog"
+
+about: |-
+  Terraform module to create and manage Azure Container Registry on Azure.
+
 license: "APACHE"
 
-# Canonical GitHub repo
-github_repo: terraform-az-modules/terraform-azure-acr
+github_repo: terraform-az-modules/terraform-azurerm-acr
 
-# Badges to display
 badges:
-- name: "Terraform"
-  image: "https://img.shields.io/badge/Terraform-v0.13-green"
-  url: "https://www.terraform.io"
-- name: "Licence"
-  image: "https://img.shields.io/badge/License-APACHE-blue.svg"
-  url: "LICENSE.md"
-- name: "Changelog"
-  image: "https://img.shields.io/badge/Changelog-blue"
-  url: "CHANGELOG.md"
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/Terraform-v1.10.0-green"
+    url: "https://www.terraform.io"
 
-# Prerequesties to display
-prerequesties:
-- name: Terraform
-  url: https://learn.hashicorp.com/terraform/getting-started/install.html
-  version: ">= 1.6.6"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-APACHE-blue.svg"
+    url: "LICENSE.md"
+
+prerequisites:
+  - name: Terraform
+    url: https://learn.hashicorp.com/terraform/getting-started/install.html
+    version: ">= 1.10.0"
 
 providers:
-- name: azure
-  url: https://azure.microsoft.com/
-  version: ">= 4.31.0"
+  - name: azurerm
+    url: https://registry.terraform.io/providers/hashicorp/azurerm/latest
+    version: ">= 4.0"
 
-#  description of this project
 description: |-
-  Terraform Azure Container Registry (ACR) module is a Terraform module that allows you to create and manage Azure Container Registry.
+  Terraform module to create and manage Azure Container Registry on Azure.
 
-# How to use this project
 usage: |-
-  Here are some examples of how you can use this module in your inventory structure:
+  ### Example
+
   ```hcl
   module "container-registry" {
-  source                     = "../../"
-  name                       = "core"
-  environment                = "dev"
-  label_order                = ["name", "environment", "location"]
-  resource_group_name        = module.resource_group.resource_group_name
-  location                   = module.resource_group.resource_group_location
-  depends_on                 = [module.private_dns_zone]
-  log_analytics_workspace_id = module.log-analytics.workspace_id
-  subnet_id                  = module.subnet.subnet_ids.subnet1
-  key_vault_id               = module.vault.id
-  private_dns_zone_ids       = module.private_dns_zone.private_dns_zone_ids.container_registry
-  logs = [
-    {
-      category = "ContainerRegistryLoginEvents"
-    },
-    {
-      category = "ContainerRegistryRepositoryEvents"
-    }
-  ]
+    source              = "../../"
+    name                = "core"
+    environment         = "dev"
+    label_order         = ["name", "environment", "location"]
+    resource_group_name = "test"
+    location            = "centralindia"
+    encryption          = false
+    enable_diagnostic   = false
+    ##-----------------------------------------------------------------------------
+    ## To be mentioned for private endpoint, because private endpoint is enabled by default.
+    ## To disable private endpoint set 'enable_private_endpoint' variable = false and than no need to specify following variable
+    ##-----------------------------------------------------------------------------
+    subnet_id = ""
   }
-    ```
+  ```
