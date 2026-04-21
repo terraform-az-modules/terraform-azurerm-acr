@@ -1,4 +1,4 @@
-name: Terraform Azure Azure Container Registry
+name: Terraform Azure Container Registry
 
 intro: |-
   With our comprehensive DevOps toolkit - streamline operations, automate workflows, enhance collaboration and deploy with confidence.
@@ -14,7 +14,7 @@ github_repo: terraform-az-modules/terraform-azurerm-acr
 
 badges:
   - name: "Terraform"
-    image: "https://img.shields.io/badge/Terraform-v1.6-green"
+    image: "https://img.shields.io/badge/Terraform-v1.10.0-green"
     url: "https://www.terraform.io"
 
   - name: "Licence"
@@ -24,7 +24,7 @@ badges:
 prerequisites:
   - name: Terraform
     url: https://learn.hashicorp.com/terraform/getting-started/install.html
-    version: ">= 1.6.6"
+    version: ">= 1.10.0"
 
 providers:
   - name: azurerm
@@ -38,11 +38,19 @@ usage: |-
   ### Example
 
   ```hcl
-  module "acr" {
-    source = "./"
-
-    name                = "acr-demo"
-    resource_group_name = "rg-demo"
-    location            = "Central India"
+  module "container-registry" {
+    source              = "../../"
+    name                = "core"
+    environment         = "dev"
+    label_order         = ["name", "environment", "location"]
+    resource_group_name = "test"
+    location            = "centralindia"
+    encryption          = false
+    enable_diagnostic   = false
+    ##-----------------------------------------------------------------------------
+    ## To be mentioned for private endpoint, because private endpoint is enabled by default.
+    ## To disable private endpoint set 'enable_private_endpoint' variable = false and than no need to specify following variable
+    ##-----------------------------------------------------------------------------
+    subnet_id = ""
   }
   ```
