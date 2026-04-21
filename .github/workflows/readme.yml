@@ -1,50 +1,3 @@
-# name: Readme Workflow
-
-# on:
-#   push:
-#     branches:
-#       - feat/docsreadme
-#   workflow_dispatch:
-
-# permissions:
-#   contents: write
-
-# jobs:
-#   readme:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v3
-
-#       - name: Clone genie
-#         run: |
-#           git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git /home/runner/genie
-
-#       - name: Setup environment
-#         run: |
-#           sudo apt-get update
-#           sudo apt-get install -y make
-
-#       - name: Generate README
-#         run: |
-#           make readme GENIE_PATH=/home/runner/genie
-
-#       - name: Commit and push changes
-#         run: |
-#           git config --global user.name "github-actions"
-#           git config --global user.email "actions@github.com"
-
-#           git add README.md
-
-#           if git diff --cached --quiet; then
-#             echo "No changes to commit"
-#           else
-#             git commit -m "docs: update README"
-#             git push origin HEAD:${{ github.ref_name }}
-#           fi
-
-
 name: Readme Workflow
 
 on:
@@ -64,27 +17,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install make
-        run: sudo apt-get update && sudo apt-get install -y make
-
       - name: Clone genie
         run: |
-          git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git .genie
-
+          git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git /home/runner/genie
+    
       - name: Debug genie
         run: |
-          ls -la .genie
-          ls -la .genie/views/docs || true
+          ls -la /home/runner/genie
+          ls -la /home/runner/genie/views/docs || true
+
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make
 
       - name: Generate README
-        run: make readme
+        run: |
+          make readme GENIE_PATH=/home/runner/genie
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
-          git add README.md docs/ || true
+          git add README.md
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -92,3 +48,5 @@ jobs:
             git commit -m "docs: update README"
             git push origin HEAD:${{ github.ref_name }}
           fi
+
+
