@@ -59,6 +59,8 @@ jobs:
           make readme GENIE_PATH=/home/runner/genie
 
       - name: Commit and push changes
+        env:
+          TOKEN: ${{ secrets.GITHUB }}
         run: |
           git config --global url."https://${{ secrets.GITHUB }}@github.com/".insteadOf "https://github.com/"
           git config --global user.name "clouddrove-ci"
