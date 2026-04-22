@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+           token: ${{ secrets.GITHUB }}
 
       - name: Clone genie
         run: |
@@ -68,6 +70,8 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "docs: update README"
+
+            git remote set-url origin https://clouddrove-ci:${{ secrets.GITHUB }}@github.com/${{ github.repository }}
 
             git push origin HEAD:${{ github.ref_name }}
           fi
