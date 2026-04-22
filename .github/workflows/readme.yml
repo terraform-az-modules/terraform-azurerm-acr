@@ -15,24 +15,45 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Clone genie
         run: |
           git clone https://${{ secrets.GITHUB }}@github.com/terraform-az-modules/genie.git /home/runner/genie
-    
-      - name: Debug genie
-        run: |
-          ls -la /home/runner/genie
-          ls -la /home/runner/genie/views/docs || true
 
       - name: Setup environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y make
+          sudo apt-get install -y make curl tar
+
+      - name: Install terraform-docs
+        run: |
+          set -euo pipefail
+          TFD_VERSION="v0.19.0"
+          ARCH="$(uname -m)"
+          case "$ARCH" in
+            x86_64) ARCH="amd64" ;;
+            aarch64|arm64) ARCH="arm64" ;;
+            *) echo "Unsupported arch: $ARCH" ; exit 1 ;;
+          esac
+          URL="https://github.com/terraform-docs/terraform-docs/releases/download/${TFD_VERSION}/terraform-docs-${TFD_VERSION}-linux-${ARCH}.tar.gz"
+          curl -fSL --retry 3 --retry-delay 2 "$URL" -o /tmp/terraform-docs.tgz
+          # Validate we actually downloaded a gzip tarball (helps diagnose 404/rate-limit HTML pages)
+          if ! tar -tzf /tmp/terraform-docs.tgz >/dev/null 2>&1; then
+            echo "Downloaded file is not a valid .tar.gz from $URL"
+            echo "--- first 40 lines of downloaded content ---"
+            head -n 40 /tmp/terraform-docs.tgz || true
+            exit 1
+          fi
+          tar -xzf /tmp/terraform-docs.tgz -C /tmp
+          sudo install -m 0755 /tmp/terraform-docs /usr/local/bin/terraform-docs
+          terraform-docs version
 
       - name: Generate README
         run: |
+          export TERM=xterm-256color
+          mkdir -p docs
+          terraform-docs md . --hide providers --hide requirements > docs/io.md
           make readme GENIE_PATH=/home/runner/genie
 
       - name: Commit and push changes
@@ -51,15 +72,3 @@ jobs:
 
             git push origin HEAD:${{ github.ref_name }}
           fi
-
-
-
-
-
-
-
-
-
-
-
-
