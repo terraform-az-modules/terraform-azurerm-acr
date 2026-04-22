@@ -3,7 +3,7 @@ name: Readme Workflow
 on:
   push:
     branches:
-      - master
+      - feat/docsreadme
   workflow_dispatch:
 
 permissions:
@@ -57,11 +57,10 @@ jobs:
           make readme GENIE_PATH=/home/runner/genie
 
       - name: Commit and push changes
-        env:
-          TOKEN: ${{ secrets.GITHUB }}
         run: |
+          git config --global url."https://${{ secrets.GITHUB }}@github.com/".insteadOf "https://github.com/"
           git config --global user.name "clouddrove-ci"
-          git config --global user.email "cloudrove-ci@clouddrove.com"
+          git config --global user.email "c84795582+clouddrove-ci@users.noreply.github.com"
 
           git add README.md docs/io.md
 
