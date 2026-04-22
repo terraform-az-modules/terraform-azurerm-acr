@@ -3,7 +3,7 @@ name: Readme Workflow
 on:
   push:
     branches:
-      - feat/docsreadme
+      - master
   workflow_dispatch:
 
 permissions:
