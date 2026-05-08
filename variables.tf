@@ -101,7 +101,7 @@ variable "container_registry_config" {
   description = "Configuration for Azure Container Registry."
   default = {
     sku                       = "Premium"
-    quarantine_policy_enabled = true
+    quarantine_policy_enabled = false
     zone_redundancy_enabled   = true
   }
 }
