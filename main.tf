@@ -36,6 +36,7 @@ resource "azurerm_container_registry" "main" {
     content {
       location                = georeplications.value.location
       zone_redundancy_enabled = georeplications.value.zone_redundancy_enabled
+      global_endpoint_routing_enabled = georeplications.value.global_endpoint_routing_enabled
       tags                    = module.labels.tags
     }
   }
@@ -54,7 +55,6 @@ resource "azurerm_container_registry" "main" {
       }
     }
   }
-  trust_policy_enabled     = var.container_registry_config.sku == "Premium" ? var.enable_content_trust : false
   retention_policy_in_days = var.retention_policy_in_days != null && var.container_registry_config.sku == "Premium" ? var.retention_policy_in_days : null
 
   identity {

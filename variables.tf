@@ -166,6 +166,7 @@ variable "georeplications" {
   type = list(object({
     location                = string
     zone_redundancy_enabled = optional(bool)
+    global_endpoint_routing_enabled  = optional(bool)
   }))
   default     = []
   description = "List of Azure regions for ACR geo-replication."
