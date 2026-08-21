@@ -124,12 +124,6 @@ variable "retention_policy_in_days" {
   description = "Retention period (in days) for untagged manifests in ACR."
 }
 
-variable "enable_content_trust" {
-  type        = bool
-  default     = false
-  description = "Enable or disable content trust in ACR."
-}
-
 variable "scope_map" {
   type = map(object({
     actions = list(string)
@@ -164,8 +158,9 @@ variable "container_registry_webhooks" {
 
 variable "georeplications" {
   type = list(object({
-    location                = string
-    zone_redundancy_enabled = optional(bool)
+    location                        = string
+    zone_redundancy_enabled         = optional(bool)
+    global_endpoint_routing_enabled = optional(bool)
   }))
   default     = []
   description = "List of Azure regions for ACR geo-replication."
