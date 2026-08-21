@@ -8,7 +8,6 @@
 | container\_registry\_webhooks | Webhooks configuration for ACR. | <pre>map(object({<br>    service_uri    = string<br>    actions        = list(string)<br>    status         = optional(string)<br>    scope          = string<br>    custom_headers = map(string)<br>  }))</pre> | <pre>{<br>  "webhook": {<br>    "actions": [<br>      "push",<br>      "delete"<br>    ],<br>    "custom_headers": {<br>      "Authorization": "Bearer exampletoken",<br>      "X-Custom-Id": "webhook-123"<br>    },<br>    "scope": "core:*",<br>    "service_uri": "https://example.com/api/webhook",<br>    "status": "enabled"<br>  }<br>}</pre> | no |
 | custom\_name | Override default naming convention | `string` | `null` | no |
 | deployment\_mode | Specifies how the infrastructure/resource is deployed | `string` | `"terraform"` | no |
-| enable\_content\_trust | Enable or disable content trust in ACR. | `bool` | `false` | no |
 | enable\_data\_endpoint | Enable data endpoint for the container registry. | `bool` | `true` | no |
 | enable\_diagnostic | Enable diagnostic settings for ACR. | `bool` | `true` | no |
 | enable\_private\_endpoint | Enable private endpoint for ACR. | `bool` | `false` | no |
@@ -16,7 +15,7 @@
 | encryption | Enable or disable encryption for ACR. | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | n/a | yes |
 | extra\_tags | Variable to pass extra tags. | `map(string)` | `null` | no |
-| georeplications | List of Azure regions for ACR geo-replication. | <pre>list(object({<br>    location                = string<br>    zone_redundancy_enabled = optional(bool)<br>  }))</pre> | `[]` | no |
+| georeplications | List of Azure regions for ACR geo-replication. | <pre>list(object({<br>    location                        = string<br>    zone_redundancy_enabled         = optional(bool)<br>    global_endpoint_routing_enabled = optional(bool)<br>  }))</pre> | `[]` | no |
 | identity\_ids | List of user managed identity IDs for ACR. | `list(string)` | `null` | no |
 | key\_expiration\_date | The expiration date for the Key Vault key | `string` | `"2028-12-31T23:59:59Z"` | no |
 | key\_permissions | List of key permissions for the Key Vault key. | `list(string)` | <pre>[<br>  "decrypt",<br>  "encrypt",<br>  "sign",<br>  "unwrapKey",<br>  "verify",<br>  "wrapKey"<br>]</pre> | no |
